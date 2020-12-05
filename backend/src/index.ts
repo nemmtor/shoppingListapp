@@ -1,5 +1,7 @@
-const helloWorld = (): void => {
-  console.log('Hello world!');
-};
+import { app } from './app';
 
-helloWorld();
+(async (): Promise<void> => {
+  app.listen(4000, () => {
+    console.log('Server listening at port 4000.');
+  });
+})();

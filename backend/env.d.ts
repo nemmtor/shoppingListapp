@@ -4,7 +4,7 @@ declare namespace NodeJS {
     TYPEORM_DATABASE: string;
     TYPEORM_PASSWORD: string;
     TYPEORM_CONNECTION: string;
-    TYPEORM_ENTIITES: string;
+    TYPEORM_ENTITIES: string;
     TYPEORM_MIGRATIONS: string;
     TYPEORM_MIGRATIONS_DIR: string;
   }

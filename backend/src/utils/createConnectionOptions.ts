@@ -1,5 +1,7 @@
 import { ConnectionOptions, getConnectionOptions } from 'typeorm';
-import { IS_PROD } from './constants';
+import { config } from '../config';
+
+const { IS_PROD } = config;
 
 export const createConnectionOptions = async (): Promise<ConnectionOptions> => {
   const connectionOptions = await getConnectionOptions();

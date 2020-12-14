@@ -2,12 +2,12 @@ import { Router } from 'express';
 import { length, validateOrReject } from 'class-validator';
 import argon2 from 'argon2';
 
-import { User } from '../entities/User.entity';
+import { User } from './User.entity';
 import { parseSqlError } from '../utils/parseSqlError';
 
-export const route = Router();
+export const userRoute = Router();
 
-route.post('/register', async (req, res) => {
+userRoute.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {

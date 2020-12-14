@@ -1,7 +1,6 @@
 import { Router } from 'express';
 
-import { helloRoute, userRoute } from './routes';
+import { userRoute } from './users';
 
 export const router = Router();
-router.use('/hello', helloRoute);
 router.use('/user', userRoute);

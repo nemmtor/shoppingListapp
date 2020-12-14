@@ -6,8 +6,8 @@ export const parseSqlError = (code: string): SqlErrorReturnValue => {
   }
   switch (code) {
     case '23505':
-      return 'x';
+      return 'That username is already taken.';
     default:
-      return 'Something went wrong in database';
+      return 'Something went wrong in database.';
   }
 };

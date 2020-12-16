@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import argon2 from 'argon2';
+import jwt from 'jsonwebtoken';
 
 import { parseSqlError } from '../utils/parseSqlError';
 import { UserValidation } from './UserValidation';
@@ -48,6 +49,11 @@ export class UserController {
         .status(401)
         .json({ message: UserController.failedLoginMessage });
     }
-    return res.status(200).json({ user });
+
+    const token = jwt.sign(
+      { username: user.username },
+      process.env.JWT_SECRET as string,
+    );
+    return res.status(200).json({ token });
   }
 }

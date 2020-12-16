@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { config } from 'dotenv-safe';
 import { createConnection } from 'typeorm';
+import killPort from 'kill-port';
 
 import { app } from './app';
 import { createConnectionOptions } from './utils/createConnectionOptions';
@@ -17,3 +18,13 @@ const server = async (): Promise<void> => {
 };
 
 server();
+
+const exit = (): void => {
+  console.log('Stopping the server...');
+  killPort(4000);
+  process.exit();
+};
+
+process.on('SIGINT', exit);
+
+process.on('exit', exit);

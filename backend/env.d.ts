@@ -7,5 +7,6 @@ declare namespace NodeJS {
     TYPEORM_ENTITIES: string;
     TYPEORM_MIGRATIONS: string;
     TYPEORM_MIGRATIONS_DIR: string;
+    JWT_SECRET: string;
   }
 }

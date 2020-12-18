@@ -1,4 +1,5 @@
 import { ConnectionOptions, getConnectionOptions } from 'typeorm';
+
 import { config } from '../config';
 
 const { IS_PROD } = config;

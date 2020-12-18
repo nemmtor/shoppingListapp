@@ -4,7 +4,7 @@ import { createConnection } from 'typeorm';
 import killPort from 'kill-port';
 
 import { app } from './app';
-import { createConnectionOptions } from './utils/createConnectionOptions';
+import { createConnectionOptions } from './utils';
 
 config();
 

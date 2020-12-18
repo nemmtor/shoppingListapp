@@ -13,4 +13,8 @@ export class UserDAL {
     await validateOrReject(user);
     await user.save();
   }
+
+  public static async getOneById(id: number): Promise<User | undefined> {
+    return User.findOne(id);
+  }
 }

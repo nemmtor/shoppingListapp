@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 
-import { parseSqlError } from '../utils/parseSqlError';
+import { parseSqlError } from '../utils';
 import { UserValidation } from './UserValidation';
 import { UserDAL } from './UserDAL';
 import { User } from './User.entity';
@@ -51,9 +51,17 @@ export class UserController {
     }
 
     const token = jwt.sign(
-      { username: user.username },
+      { username: user.username, userId: user.id },
       process.env.JWT_SECRET as string,
     );
+
+    res.cookie('token', token, { httpOnly: true });
+
     return res.status(200).json({ token });
+  }
+
+  public static me(_req: Request, res: Response): Response {
+    const { username } = res.locals.user;
+    return res.status(200).json({ username });
   }
 }

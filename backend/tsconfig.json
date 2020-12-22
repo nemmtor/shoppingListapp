@@ -36,7 +36,8 @@
   },
   "include": [
     "./src/**/*.ts",
-    "decs.d.ts"
+    "decs.d.ts",
+    "swagger.yml"
   ],
   "exclude": [
     "node_modules"

@@ -1,5 +1,6 @@
 type SqlErrorReturnValue = string | null;
 
+// TODO: this should take whole error, and parse error message itself rather than just telling that username is already taken
 export const parseSqlError = (code: string): SqlErrorReturnValue => {
   if (!code) {
     return null;

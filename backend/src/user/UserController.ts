@@ -23,6 +23,7 @@ export class UserController {
       await UserDAL.create(username, password);
       return res.status(200).json({ message: 'Registered successfully.' });
     } catch (error) {
+      // TODO: username already taken should return 409
       const errorOutput = parseSqlError(error.code) || error.message || error;
       return res.status(400).json({ message: errorOutput });
     }
@@ -41,7 +42,7 @@ export class UserController {
     const validPassword = await argon2.verify(user.password, password);
     if (!validPassword) {
       return res
-        .status(401)
+        .status(UserController.failedLoginCode)
         .json({ message: UserController.failedLoginMessage });
     }
 

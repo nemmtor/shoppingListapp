@@ -2,9 +2,8 @@ import 'reflect-metadata';
 import { config } from 'dotenv-safe';
 import { createConnection } from 'typeorm';
 import killPort from 'kill-port';
-
-import { app } from './app';
 import { createConnectionOptions } from './utils';
+import { app } from './app';
 
 config();
 

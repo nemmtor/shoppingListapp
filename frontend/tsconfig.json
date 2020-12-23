@@ -22,7 +22,7 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
+    //    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "module": "esnext",
@@ -30,7 +30,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react-jsx"
   },
   "include": [
     "./src/**/*.ts",

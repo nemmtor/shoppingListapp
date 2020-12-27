@@ -1,5 +1,22 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { CssBaseline } from '@material-ui/core';
 
-const App = (): JSX.Element => <h1>Hello world!</h1>;
+import { LandingPage, Login } from './views';
 
+const App: React.FC = () => {
+  return (
+    <>
+      <CssBaseline />
+      <Switch>
+        <Route exact path="/">
+          <LandingPage />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+      </Switch>
+    </>
+  );
+};
 export default App;

@@ -1,0 +1,8 @@
+@import '../../styles/extends/flex';
+@import '../../styles/extends/heights';
+
+.hero {
+  @extend %flex-centerized;
+  @extend %flex-col;
+  @extend %full-screen-height;
+}

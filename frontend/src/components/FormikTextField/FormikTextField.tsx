@@ -18,8 +18,9 @@ export const FormikTextField: React.FC<IProps> = ({
   const { value, onChange, onBlur, name } = field;
   const { errors, touched } = form;
 
-  const error = errors[`${name}`];
-  const hasError = !!error && !!touched[`${name}`];
+  const isTouched = !!touched[`${name}`];
+  const error = isTouched && errors[`${name}`];
+  const hasError = isTouched && !!error;
   return (
     <TextField
       className={className}

@@ -32,14 +32,17 @@ export class UserMiddleware {
     res: Response,
     next: NextFunction,
   ): Promise<Response | void> {
+    const { token } = req.body;
+    console.log(token);
     const denyMessage = 'Access denied.';
-    const token = req.headers['x-access-token'] || req.headers.authorization;
     if (!token) return res.status(401).json({ message: denyMessage });
     try {
       const decodedToken = getDecodedToken(token as string);
 
       const user = await UserDAL.getOneById(decodedToken.userId);
-      if (!user) throw new Error();
+      if (!user) {
+        return res.status(401).json({ message: denyMessage });
+      }
 
       res.locals.user = user;
 

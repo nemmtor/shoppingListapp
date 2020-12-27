@@ -1,0 +1,1 @@
+export { checkAuthentication } from './checkAuthentication';

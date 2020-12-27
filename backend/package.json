@@ -11,6 +11,7 @@
     "pgadmin:start": "docker container start pgadmin"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.9",
     "@types/dotenv-safe": "^8.1.1",
     "@types/express": "^4.17.9",
     "@types/jsonwebtoken": "^8.5.0",
@@ -33,6 +34,7 @@
     "@types/js-yaml": "^3.12.5",
     "argon2": "^0.27.0",
     "class-validator": "^0.12.2",
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",

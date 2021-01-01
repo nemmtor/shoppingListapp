@@ -2,7 +2,7 @@ import { length } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
 
 import { config } from '../config';
-import { getDecodedToken } from '../utils';
+import { getDataFromToken } from '../utils';
 import { UserDAL } from './UserDAL';
 
 const { MIN_PW_LENGTH, MAX_PW_LENGTH } = config;
@@ -19,6 +19,7 @@ export class UserMiddleware {
       return res.status(422).json({ message: 'Invalid request body.' });
     }
 
+    // Need proper IFormError here!
     if (!length(password, MIN_PW_LENGTH, MAX_PW_LENGTH)) {
       return res.status(422).json({
         message: `Password must be between ${MIN_PW_LENGTH} and ${MAX_PW_LENGTH} characters long.`,
@@ -36,9 +37,9 @@ export class UserMiddleware {
     const denyMessage = 'Access denied.';
     if (!token) return res.status(401).json({ message: denyMessage });
     try {
-      const decodedToken = getDecodedToken(token as string);
+      const decodedTokenData = getDataFromToken(token as string);
 
-      const user = await UserDAL.getOneById(decodedToken.userId);
+      const user = await UserDAL.getOneById(decodedTokenData.userId);
       if (!user) {
         return res.status(401).json({ message: denyMessage });
       }

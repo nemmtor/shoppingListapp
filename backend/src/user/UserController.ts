@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 
 import { parseSqlError } from '../utils';
 import { UserDAL } from './UserDAL';
-import { User } from './User.entity';
 
 import { IRegisterRes, ILoginRes } from './interfaces';
 
@@ -32,18 +31,24 @@ export class UserController {
   public static async login(req: Request, res: ILoginRes): Promise<Response> {
     const { username, password } = req.body;
 
-    const user = await User.findOne({ where: { username } });
+    const user = await UserDAL.getOneByUsername(username);
     if (!user) {
-      return res
-        .status(UserController.failedLoginCode)
-        .json({ message: UserController.failedLoginMessage });
+      return res.status(UserController.failedLoginCode).json({
+        errors: [
+          { field: 'username', error: UserController.failedLoginMessage },
+          { field: 'password', error: UserController.failedLoginMessage },
+        ],
+      });
     }
 
     const validPassword = await argon2.verify(user.password, password);
     if (!validPassword) {
-      return res
-        .status(UserController.failedLoginCode)
-        .json({ message: UserController.failedLoginMessage });
+      return res.status(UserController.failedLoginCode).json({
+        errors: [
+          { field: 'username', error: UserController.failedLoginMessage },
+          { field: 'password', error: UserController.failedLoginMessage },
+        ],
+      });
     }
 
     const token = jwt.sign(

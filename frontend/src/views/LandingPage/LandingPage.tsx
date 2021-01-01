@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 
 import styles from './LandingPage.module.scss';
@@ -7,15 +7,19 @@ import styles from './LandingPage.module.scss';
 const LandingPage: React.FC = () => {
   return (
     <div className={`${styles.hero}`}>
-      <h1>Welcome to shopping list app</h1>
-      <Button
-        color="primary"
-        variant="contained"
-        component={RouterLink}
-        to="/login"
-      >
-        Login
-      </Button>
+      <Typography variant="h4" component="h1" align="center">
+        Welcome to shopping list app
+      </Typography>
+      <Box mt={2}>
+        <Button
+          color="primary"
+          variant="contained"
+          component={RouterLink}
+          to="/login"
+        >
+          Login
+        </Button>
+      </Box>
     </div>
   );
 };

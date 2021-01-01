@@ -10,10 +10,6 @@ userRoute.post(
   UserController.register,
 );
 
-userRoute.post(
-  '/login',
-  UserMiddleware.validateAuthBodyRequest,
-  UserController.login,
-);
+userRoute.post('/login', UserController.login);
 
 userRoute.post('/me', UserMiddleware.checkAuthorization, UserController.me);

@@ -29,16 +29,6 @@ module.exports = {
     SharedArrayBuffer: 'readonly',
   },
   rules: {
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
     'react/prop-types': 0,
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': [
@@ -49,7 +39,7 @@ module.exports = {
         ignoreRestSiblings: true,
       },
     ],
-    // 'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'no-loops/no-loops': 2,
     'no-console': 0,
     'import/prefer-default-export': 0,

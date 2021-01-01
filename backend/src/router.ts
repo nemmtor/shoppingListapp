@@ -4,9 +4,11 @@ import fs from 'fs';
 import swaggerUI, { JsonObject } from 'swagger-ui-express';
 
 import { userRoute } from './user';
+import { apiDocsRoute } from './apiDocs';
 
 export const router = Router();
 router.use('/user', userRoute);
+router.use('/api-docs', apiDocsRoute);
 
 try {
   const swaggerDoc = yaml.safeLoad(

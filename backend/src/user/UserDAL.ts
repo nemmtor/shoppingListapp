@@ -17,4 +17,10 @@ export class UserDAL {
   public static async getOneById(id: number): Promise<User | undefined> {
     return User.findOne(id);
   }
+
+  public static async getOneByUsername(
+    username: string,
+  ): Promise<User | undefined> {
+    return User.findOne({ where: { username } });
+  }
 }

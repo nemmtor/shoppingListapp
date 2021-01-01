@@ -33,7 +33,6 @@ export class UserMiddleware {
     next: NextFunction,
   ): Promise<Response | void> {
     const { token } = req.body;
-    console.log(token);
     const denyMessage = 'Access denied.';
     if (!token) return res.status(401).json({ message: denyMessage });
     try {

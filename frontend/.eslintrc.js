@@ -29,6 +29,16 @@ module.exports = {
     SharedArrayBuffer: 'readonly',
   },
   rules: {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
     'react/prop-types': 0,
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': [

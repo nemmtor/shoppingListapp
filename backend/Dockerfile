@@ -1,0 +1,27 @@
+FROM node:14.15.1-alpine
+
+RUN mkdir -p /home/app/shopping-back && mkdir -p /home/app/shared && chown -R node:node /home/app
+
+WORKDIR /home/app
+
+COPY backend/package.json ./shopping-back
+
+COPY backend/yarn.lock ./shopping-back
+
+COPY shared ./shared
+
+
+WORKDIR /home/app/shopping-back
+
+RUN yarn install
+
+USER node
+
+COPY --chown=node:node backend .
+
+RUN chmod 755 ./entrypoint.sh
+
+
+EXPOSE 5000
+ENTRYPOINT ["sh", "./entrypoint.sh"]
+CMD [ "yarn", "start" ]

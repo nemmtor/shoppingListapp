@@ -1,0 +1,49 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "4000:4000"
+    container_name: shopping-backend
+    depends_on:
+      - db
+      # - migrations
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "5000:5000"
+    container_name: shopping-frontend
+    stdin_open: true
+    depends_on:
+      - backend
+
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    container_name: shopping-db
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "5433:80"
+    container_name: shopping-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@root.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+  # migrations:
+  #   build:
+  #     context: .
+  #     dockerfile: backend/Dockerfile
+  #   command: yarn migration:run
+  #   depends_on:
+  #     - db
+  #   container_name: shopping-migrations

@@ -1,12 +1,8 @@
 import { Response } from 'express';
-import { IRegisterResJson, ILoginResJson } from '../../../shared';
+import { IAuthResJson } from '../../../shared';
 
 type TSend<T = Response, B = null> = (body?: B) => T;
 
-export interface IRegisterRes extends Response {
-  json: TSend<this, IRegisterResJson>;
-}
-
-export interface ILoginRes extends Response {
-  json: TSend<this, ILoginResJson>;
+export interface IAuthRes extends Response {
+  json: TSend<this, IAuthResJson>;
 }

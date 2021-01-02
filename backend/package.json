@@ -7,7 +7,8 @@
     "dev": "cross-env NODE_ENV=dev nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
     "start": "cross-env NODE_ENV=production ts-node src/index.ts",
     "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
-    "db-dev:start": "docker container run -d -p 5432:5432 --name shopping-db-dev -e POSTGRES_PASSWORD=postgres postgres"
+    "db-dev:run": "docker container run -d -p 5432:5432 --name shopping-db-dev -e POSTGRES_PASSWORD=postgres postgres",
+    "db-dev:start": "docker container start shopping-db-dev"
   },
   "devDependencies": {
     "@types/cors": "^2.8.9",

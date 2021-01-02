@@ -2,33 +2,37 @@ import { Request, Response } from 'express';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 
-import { parseSqlError } from '../utils';
+// import { parseSqlError } from '../utils';
 import { UserDAL } from './UserDAL';
 
-import { IRegisterRes, ILoginRes } from './interfaces';
+import { IAuthRes } from './interfaces';
 
 export class UserController {
   private static failedLoginCode = 401;
 
   private static failedLoginMessage = 'Invalid username or password.';
 
-  public static async register(
-    req: Request,
-    res: IRegisterRes,
-  ): Promise<Response> {
+  public static async register(req: Request, res: IAuthRes): Promise<Response> {
     const { username, password } = req.body;
 
     try {
       await UserDAL.create(username, password);
-      return res.status(200).json({ message: 'Registered successfully.' });
+      return res.status(200).json();
     } catch (error) {
       // TODO: username already taken should return 409
-      const errorOutput = parseSqlError(error.code) || error.message || error;
-      return res.status(400).json({ message: errorOutput });
+      // const errorOutput = parseSqlError(error.code) || error.message || error;
+      return res.status(400).json({
+        errors: [
+          {
+            field: 'username',
+            error: 'TODO here, need to check if it is from sql',
+          },
+        ],
+      });
     }
   }
 
-  public static async login(req: Request, res: ILoginRes): Promise<Response> {
+  public static async login(req: Request, res: IAuthRes): Promise<Response> {
     const { username, password } = req.body;
 
     const user = await UserDAL.getOneByUsername(username);

@@ -1,11 +1,16 @@
 import { length } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
 
-import { config } from '../config';
 import { getDataFromToken } from '../utils';
 import { UserDAL } from './UserDAL';
+import { validations } from '../../../shared';
 
-const { MIN_PW_LENGTH, MAX_PW_LENGTH } = config;
+const {
+  MIN_PW_LENGTH,
+  MAX_PW_LENGTH,
+  MIN_UNAME_LENGTH,
+  MAX_UNAME_LENGTH,
+} = validations;
 
 export class UserMiddleware {
   public static validateAuthBodyRequest(
@@ -20,11 +25,19 @@ export class UserMiddleware {
     }
 
     // Need proper IFormError here!
+    if (!length(username, MIN_UNAME_LENGTH, MAX_UNAME_LENGTH)) {
+      return res.status(422).json({
+        message: `Username must be between ${MIN_UNAME_LENGTH} and ${MAX_UNAME_LENGTH} characters long.`,
+      });
+    }
+
+    // Need proper IFormError here!
     if (!length(password, MIN_PW_LENGTH, MAX_PW_LENGTH)) {
       return res.status(422).json({
         message: `Password must be between ${MIN_PW_LENGTH} and ${MAX_PW_LENGTH} characters long.`,
       });
     }
+
     return next();
   }
 

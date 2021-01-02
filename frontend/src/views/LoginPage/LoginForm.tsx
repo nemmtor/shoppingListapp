@@ -13,7 +13,7 @@ import * as Yup from 'yup';
 
 import { IFormValues } from './IFormValues';
 import { FormikTextField } from '../../components';
-import { IFormError } from '../../../../shared';
+import { IFormError, validations } from '../../../../shared';
 import { parseToFormikErrors } from '../../utils/parseToFormikErrors';
 
 interface IProps {
@@ -31,16 +31,22 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+const {
+  MIN_PW_LENGTH,
+  MAX_PW_LENGTH,
+  MIN_UNAME_LENGTH,
+  MAX_UNAME_LENGTH,
+} = validations;
+
 const validationSchema = Yup.object().shape({
   username: Yup.string()
     .required('This field is required')
-    .min(4, 'This username is too short')
-    .max(15, 'This username is too long'),
-  // TODO: Change 6 to CONFIG.MIN_PW_LENGTH (Need to store some of config in shared dir)
+    .min(MIN_UNAME_LENGTH, 'This username is too short')
+    .max(MAX_UNAME_LENGTH, 'This username is too long'),
   password: Yup.string()
     .required('This field is required')
-    .min(6, 'This password is too short')
-    .max(20, 'This password is too long'),
+    .min(MIN_PW_LENGTH, 'This password is too short')
+    .max(MAX_PW_LENGTH, 'This password is too long'),
 });
 
 const LoginForm: React.FC<IProps> = ({ handleSubmit }) => {

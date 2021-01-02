@@ -5,7 +5,7 @@ import qs from 'qs';
 import LoginForm from './LoginForm';
 import styles from './LoginPage.module.scss';
 import { IFormValues } from './IFormValues';
-import { IFormError, ILoginResJson } from '../../../../shared';
+import { IFormError, IAuthResJson } from '../../../../shared';
 
 const LoginPage: React.FC<RouteProps> = () => {
   const location = useLocation();
@@ -24,7 +24,7 @@ const LoginPage: React.FC<RouteProps> = () => {
       body,
     });
 
-    const json: ILoginResJson = await res.json();
+    const json: IAuthResJson = await res.json();
 
     // If success
     if (res.status < 400) {

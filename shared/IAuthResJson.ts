@@ -2,11 +2,11 @@ import { IFormError } from './IFormError';
 
 type TField = 'username' | 'password';
 
-interface ILoginFormError extends IFormError {
+interface IAuthFormError extends IFormError {
   field: TField;
 }
 
-export interface ILoginResJson {
-  errors?: ILoginFormError[];
+export interface IAuthResJson {
+  errors?: IAuthFormError[];
   token?: string;
 }

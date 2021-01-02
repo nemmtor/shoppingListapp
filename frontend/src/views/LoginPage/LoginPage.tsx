@@ -2,9 +2,9 @@ import React from 'react';
 import { RouteProps, useLocation, useHistory } from 'react-router-dom';
 import qs from 'qs';
 
-import LoginForm from './LoginForm';
+import { AuthForm } from '../../components';
 import styles from './LoginPage.module.scss';
-import { IFormValues } from './IFormValues';
+import { IAuthFormValues } from '../../interfaces';
 import { IFormError, IAuthResJson } from '../../../../shared';
 
 const LoginPage: React.FC<RouteProps> = () => {
@@ -12,7 +12,7 @@ const LoginPage: React.FC<RouteProps> = () => {
   const history = useHistory();
 
   const handleSubmit = async (
-    values: IFormValues,
+    values: IAuthFormValues,
   ): Promise<void | IFormError[]> => {
     const { username, password } = values;
     const body = JSON.stringify({ username, password });
@@ -48,7 +48,7 @@ const LoginPage: React.FC<RouteProps> = () => {
 
   return (
     <div className={styles.container}>
-      <LoginForm handleSubmit={handleSubmit} />
+      <AuthForm handleSubmit={handleSubmit} formType="login" />
     </div>
   );
 };

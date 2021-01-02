@@ -1,4 +1,4 @@
-export interface IFormValues {
+export interface IAuthFormValues {
   username: string;
   password: string;
 }

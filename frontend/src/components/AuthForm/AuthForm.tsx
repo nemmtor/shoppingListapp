@@ -10,6 +10,7 @@ import {
 import { Formik, Form, Field } from 'formik';
 import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 import { IAuthFormValues } from '../../interfaces';
 import { FormikTextField } from '../FormikTextField';
@@ -27,6 +28,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  icon: {
+    fontSize: '3rem',
+    margin: '0 auto',
+  },
+  title: {
+    letterSpacing: '0.08em',
+    opacity: 0.8,
+    margin: '0 auto',
   },
   textField: {
     marginBottom: theme.spacing(2),
@@ -71,6 +81,8 @@ export const AuthForm: React.FC<IProps> = ({ handleSubmit, formType }) => {
 
   const yupSchema = isLoginPage ? yupLoginSchema : yupRegisterSchema;
 
+  const formTitle = isLoginPage ? 'Login' : 'Register';
+
   return (
     <Formik
       initialValues={{ username: '', password: '', confirmPassword: '' }}
@@ -85,6 +97,10 @@ export const AuthForm: React.FC<IProps> = ({ handleSubmit, formType }) => {
     >
       {({ errors }): JSX.Element => (
         <Form className={styles.form}>
+          <AccountBoxIcon className={styles.icon} />
+          <Typography component="h1" variant="h6" className={styles.title}>
+            {formTitle}
+          </Typography>
           <Field
             className={styles.textField}
             name="username"

@@ -1,0 +1,1 @@
+export { PaperCenter } from './PaperCenter';

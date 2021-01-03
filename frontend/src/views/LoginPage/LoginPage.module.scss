@@ -1,8 +1,0 @@
-@import '../../styles/extends/flex';
-@import '../../styles/extends/heights';
-
-.container {
-  @extend %flex-centerized;
-  @extend %flex-col;
-  @extend %full-screen-height;
-}

@@ -2,8 +2,7 @@ import React from 'react';
 import { RouteProps, useLocation, useHistory } from 'react-router-dom';
 import qs from 'qs';
 
-import { AuthForm } from '../../components';
-import styles from './LoginPage.module.scss';
+import { AuthForm, PaperCenter } from '../../components';
 import { IAuthFormValues } from '../../interfaces';
 import { IFormError, IAuthResJson } from '../../../../shared';
 
@@ -39,16 +38,18 @@ const LoginPage: React.FC<RouteProps> = () => {
       if (redirect) {
         return history.push(redirect as string);
       }
-      // Redirect to root
-      return history.push('/');
+      // Redirect to dashboard
+      return history.push('/dashboard');
     }
 
     return json.errors;
   };
 
   return (
-    <div className={styles.container}>
-      <AuthForm handleSubmit={handleSubmit} formType="login" />
+    <div className="fullscreenCenterBg">
+      <PaperCenter elevation={10}>
+        <AuthForm handleSubmit={handleSubmit} formType="login" />
+      </PaperCenter>
     </div>
   );
 };

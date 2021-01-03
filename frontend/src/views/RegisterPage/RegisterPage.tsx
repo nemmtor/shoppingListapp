@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import styles from './RegisterPage.module.scss';
-import { AuthForm } from '../../components';
+import { AuthForm, PaperCenter } from '../../components';
 import { IAuthResJson, IFormError } from '../../../../shared';
 import { IAuthFormValues } from '../../interfaces';
 
@@ -25,14 +24,16 @@ export const RegisterPage: React.FC = () => {
 
     // If success
     if (res.status < 400) {
-      return history.push('/login');
+      return history.push('/dashboard');
     }
     return json.errors;
   };
 
   return (
-    <div className={styles.container}>
-      <AuthForm handleSubmit={handleSubmit} formType="register" />
+    <div className="fullscreenCenterBg">
+      <PaperCenter elevation={10}>
+        <AuthForm handleSubmit={handleSubmit} formType="register" />
+      </PaperCenter>
     </div>
   );
 };

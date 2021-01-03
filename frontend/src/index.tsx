@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import 'fontsource-roboto';
 
 import App from './App';
+import './styles/index.scss';
 
 ReactDOM.render(
   <React.StrictMode>

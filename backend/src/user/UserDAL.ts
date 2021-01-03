@@ -6,12 +6,13 @@ export class UserDAL {
   public static async create(
     username: string,
     password: string,
-  ): Promise<void> {
+  ): Promise<User> {
     const hashedPassword = await argon2.hash(password);
     const user = User.create({ username, password: hashedPassword });
 
     await validateOrReject(user);
     await user.save();
+    return user;
   }
 
   public static async getOneById(id: number): Promise<User | undefined> {

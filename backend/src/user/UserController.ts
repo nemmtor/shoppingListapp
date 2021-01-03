@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import argon2 from 'argon2';
-import jwt from 'jsonwebtoken';
 
-// import { parseSqlError } from '../utils';
+import { parseSqlError, createAuthToken } from '../utils';
 import { UserDAL } from './UserDAL';
 
 import { IAuthRes } from './interfaces';
@@ -16,16 +15,19 @@ export class UserController {
     const { username, password } = req.body;
 
     try {
-      await UserDAL.create(username, password);
-      return res.status(200).json();
+      const user = await UserDAL.create(username, password);
+
+      const token = createAuthToken(user);
+
+      return res.status(200).json({ token });
     } catch (error) {
       // TODO: username already taken should return 409
-      // const errorOutput = parseSqlError(error.code) || error.message || error;
+      const errorOutput = parseSqlError(error.code) || error.message || error;
       return res.status(400).json({
         errors: [
           {
             field: 'username',
-            error: 'TODO here, need to check if it is from sql',
+            error: errorOutput,
           },
         ],
       });
@@ -55,10 +57,7 @@ export class UserController {
       });
     }
 
-    const token = jwt.sign(
-      { username: user.username, userId: user.id },
-      process.env.JWT_SECRET as string,
-    );
+    const token = createAuthToken(user);
 
     res.cookie('token', token, { httpOnly: true });
 

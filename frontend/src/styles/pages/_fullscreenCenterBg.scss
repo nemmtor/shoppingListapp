@@ -1,0 +1,10 @@
+@import '../extends/flex';
+@import '../extends/heights';
+@import '../extends/backgrounds';
+
+.fullscreenCenterBg {
+  @extend %flex-centerized;
+  @extend %flex-col;
+  @extend %full-screen-height;
+  @extend %nice-bg;
+}

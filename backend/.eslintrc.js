@@ -5,7 +5,6 @@ module.exports = {
   },
   parserOptions: {
     project: ['./tsconfig.json'],
-    createDefaultProgram: true,
   },
   parser: '@typescript-eslint/parser',
   extends: [
@@ -29,5 +28,8 @@ module.exports = {
     'no-console': 0,
     'import/prefer-default-export': 0,
     '@typescript-eslint/explicit-function-return-type': ['error'],
+    '@typescript-eslint/dot-notation': 'off',
+    '@typescript-eslint/no-implied-eval': 'off',
+    '@typescript-eslint/no-throw-literal': 'off',
   },
 };

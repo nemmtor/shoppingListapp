@@ -35,7 +35,7 @@
     "files": true
   },
   "include": [
-    "./src/**/*.ts",
+    "./src/**/*",
     "decs.d.ts",
     "swagger.yml"
   ],

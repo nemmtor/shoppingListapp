@@ -22,6 +22,20 @@ components:
       required:
         - username
         - password
+    AuthToken:
+      type: string
+    AuthError:
+      properties:
+        field:
+          type: string
+        error:
+          type: string
+#    AuthRes:
+#      properties:
+#        token:
+#          $ref: '#/components/schemas/AuthToken'
+#        error:
+#          $ref: '#/components/schemas/AuthError'
 
 paths:
   /user/register:
@@ -36,11 +50,33 @@ paths:
               $ref: '#/components/schemas/AuthBody'
       responses:
         200:
-          description: Registered
-        409:
+          description: Registered succesfully
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    $ref: '#/components/schemas/AuthToken'
+        400:
           description: Username already taken
+          content:
+            application/json:
+              schema:
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AuthError'
         422:
-          description: Invalid body
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AuthError'
   /user/login:
     post:
       summary: Login user
@@ -57,9 +93,16 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 properties:
                   token:
-                    type: string
+                    $ref: '#/components/schemas/AuthToken'
         401:
           description: Login failed due to wrong username or password
+          content:
+            application/json:
+              schema:
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AuthError'

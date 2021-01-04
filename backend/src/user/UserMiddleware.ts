@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getDataFromToken } from '../utils';
 import { UserDAL } from './UserDAL';
 import { validations } from '../../../shared';
+import { IMiddlewareErrorRes } from './interfaces';
 
 const {
   MIN_PW_LENGTH,
@@ -15,26 +16,30 @@ const {
 export class UserMiddleware {
   public static validateAuthBodyRequest(
     req: Request,
-    res: Response,
+    res: IMiddlewareErrorRes,
     next: NextFunction,
   ): Response | void {
     const { username, password } = req.body;
 
     if (!username || !password) {
-      return res.status(422).json({ message: 'Invalid request body.' });
+      return res.status(422).json({ errors: [{ field: 'form', error: 'Invalid body datata' }] });
     }
 
-    // Need proper IFormError here!
     if (!length(username, MIN_UNAME_LENGTH, MAX_UNAME_LENGTH)) {
       return res.status(422).json({
-        message: `Username must be between ${MIN_UNAME_LENGTH} and ${MAX_UNAME_LENGTH} characters long.`,
+        errors: [{
+          field: 'username',
+          error: `Username must be between ${MIN_UNAME_LENGTH} and ${MAX_UNAME_LENGTH} characters long`
+        }]
       });
     }
 
-    // Need proper IFormError here!
     if (!length(password, MIN_PW_LENGTH, MAX_PW_LENGTH)) {
       return res.status(422).json({
-        message: `Password must be between ${MIN_PW_LENGTH} and ${MAX_PW_LENGTH} characters long.`,
+        errors: [{
+          field: 'password',
+          error: `Password must be between ${MIN_PW_LENGTH} and ${MAX_PW_LENGTH} characters long`
+        }]
       });
     }
 

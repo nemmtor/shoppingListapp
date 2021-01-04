@@ -30,6 +30,7 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - dbvolume:/var/lib/postgresql/data
     container_name: shopping-db
   pgadmin:
     image: dpage/pgadmin4
@@ -39,6 +40,8 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=root@root.com
       - PGADMIN_DEFAULT_PASSWORD=root
+    volumes:
+      - pgadminvolume:/var/lib/pgadmin
   # migrations:
   #   build:
   #     context: .
@@ -47,3 +50,6 @@ services:
   #   depends_on:
   #     - db
   #   container_name: shopping-migrations
+volumes:
+  dbvolume:
+  pgadminvolume:

@@ -90,6 +90,7 @@ export const AuthForm: React.FC<IProps> = ({ handleSubmit, formType }) => {
       onSubmit={async (values, { setErrors }): Promise<void> => {
         const errors = await handleSubmit(values);
         if (errors) {
+          // TODO: Handle new error, {field: 'form', error: string}
           const parsedErrors = parseToFormikErrors(errors);
           setErrors(parsedErrors);
         }

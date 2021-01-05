@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     letterSpacing: '0.08em',
     opacity: 0.8,
-    margin: '0 auto',
+    textAlign: 'center',
+    marginBottom: theme.spacing(2),
   },
   textField: {
     marginBottom: theme.spacing(2),
@@ -99,9 +100,11 @@ export const AuthForm: React.FC<IProps> = ({ handleSubmit, formType }) => {
       {({ errors }): JSX.Element => (
         <Form className={styles.form}>
           <AccountBoxIcon className={styles.icon} />
-          <Typography component="h1" variant="h6" className={styles.title}>
-            {formTitle}
-          </Typography>
+          <Box sx={{ marginBottom: 4 }}>
+            <Typography component="h1" variant="h6" className={styles.title}>
+              {formTitle}
+            </Typography>
+          </Box>
           <Field
             className={styles.textField}
             name="username"

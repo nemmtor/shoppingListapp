@@ -93,7 +93,7 @@ export const Dashboard: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <AppBar position="fixed">
-        <Toolbar>
+        <Toolbar className={styles.appBar}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -109,7 +109,7 @@ export const Dashboard: React.FC = () => {
         </Toolbar>
       </AppBar>
       <nav className={styles.drawer} aria-label="mailbox folders">
-        <Hidden smUp implementation="js">
+        <Hidden smUp>
           <Drawer
             variant="temporary"
             open={isMobileOpen}
@@ -117,14 +117,11 @@ export const Dashboard: React.FC = () => {
             classes={{
               paper: styles.drawerPaper,
             }}
-            // ModalProps={{
-            //   keepMounted: true, // Better open performance on mobile.
-            // }}
           >
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown>
           <Drawer
             classes={{
               paper: styles.drawerPaper,

@@ -11,7 +11,7 @@ const LandingPage: React.FC = () => {
         <Typography variant="h4" component="h1" align="center">
           Welcome to shopping list app
         </Typography>
-        <Box mt={2}>
+        <Box sx={{ marginTop: 4 }}>
           <Button
             color="primary"
             variant="contained"

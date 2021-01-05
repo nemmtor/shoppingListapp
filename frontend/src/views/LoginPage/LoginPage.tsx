@@ -46,11 +46,13 @@ const LoginPage: React.FC<RouteProps> = () => {
   };
 
   return (
-    <div className="fullscreenCenterBg">
-      <PaperCenter elevation={10}>
-        <AuthForm handleSubmit={handleSubmit} formType="login" />
-      </PaperCenter>
-    </div>
+    <>
+      <div className="fullscreenCenterBg">
+        <PaperCenter elevation={10}>
+          <AuthForm handleSubmit={handleSubmit} formType="login" />
+        </PaperCenter>
+      </div>
+    </>
   );
 };
 export default LoginPage;

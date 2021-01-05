@@ -7,10 +7,10 @@ import {
   Typography,
   Link,
 } from '@material-ui/core';
+import { AccountBox as AccountBoxIcon } from '@material-ui/icons';
 import { Formik, Form, Field } from 'formik';
 import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 import { IAuthFormValues } from '../../interfaces';
 import { FormikTextField } from '../FormikTextField';
@@ -129,7 +129,7 @@ export const AuthForm: React.FC<IProps> = ({ handleSubmit, formType }) => {
             {isLoginPage ? 'Login' : 'Register'}
           </Button>
           {isLoginPage && (
-            <Box mt={2}>
+            <Box sx={{ marginTop: 4 }}>
               Not having an account yet?
               <Typography>
                 <Link to="/register" component={RouterLink}>
@@ -139,7 +139,7 @@ export const AuthForm: React.FC<IProps> = ({ handleSubmit, formType }) => {
             </Box>
           )}
           {!isLoginPage && (
-            <Box mt={2}>
+            <Box sx={{ marginTop: 4 }}>
               Already have an account?
               <Typography>
                 <Link to="/login" component={RouterLink}>

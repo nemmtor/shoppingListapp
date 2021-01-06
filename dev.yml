@@ -1,0 +1,35 @@
+version: "3"
+services:
+  dev.shopping-backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.dev
+    ports:
+      - "4000:4000"
+    container_name: dev.shopping-backend
+    volumes:
+      - ./backend:/home/app/shopping-back
+    depends_on:
+      - dev.shopping-db
+
+  dev.shopping-frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile.dev
+    ports:
+      - "3000:3000"
+    container_name: dev.shopping-frontend
+    volumes:
+      - ./frontend:/home/app/shopping-front
+
+  dev.shopping-db:
+    image: postgres
+    container_name: dev.shopping-db
+    env_file:
+      - ./.env.dev
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - dbvolume-dev:/var/lib/postgresql/data
+
+volumes:
+  dbvolume-dev:

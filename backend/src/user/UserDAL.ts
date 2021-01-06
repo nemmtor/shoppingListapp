@@ -3,7 +3,7 @@ import { validateOrReject } from 'class-validator';
 import { User } from './User.entity';
 
 export class UserDAL {
-  public static async create(
+  public static async createOrFail(
     username: string,
     password: string,
   ): Promise<User> {

@@ -6,12 +6,18 @@ import swaggerUI, { JsonObject } from 'swagger-ui-express';
 export const apiDocsRoute = Router();
 
 try {
-  const swaggerDoc = yaml.safeLoad(
+  // Load swagger docs from yml file
+  const swaggerDocs = yaml.safeLoad(
     fs.readFileSync(`${__dirname}/../../swagger.yml`, 'utf-8'),
   );
 
-  apiDocsRoute.use('/api-docs', swaggerUI.serve);
-  apiDocsRoute.get('/api-docs', swaggerUI.setup(swaggerDoc as JsonObject));
+  apiDocsRoute.use('/', swaggerUI.serve);
+  apiDocsRoute.get('/', swaggerUI.setup(swaggerDocs as JsonObject));
 } catch (_err) {
   console.log(`Warning: couldn't load swagger docs!`);
+  apiDocsRoute.get('/', (_req, res) => {
+    res
+      .status(400)
+      .send('There is a problem with api docs. Please contact administrator.');
+  });
 }

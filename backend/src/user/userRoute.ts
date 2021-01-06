@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { UserController } from './UserController';
 import { UserMiddleware } from './UserMiddleware';
 

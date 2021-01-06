@@ -1,5 +1,6 @@
 FROM node:14.15.1-alpine
-
+# TODO: Do I really need to make /home/app/shopping-back?
+# TODO: /app/code/src and app/shared should be enough
 RUN mkdir -p /home/app/shopping-back && mkdir -p /home/app/shared && chown -R node:node /home/app
 
 WORKDIR /home/app

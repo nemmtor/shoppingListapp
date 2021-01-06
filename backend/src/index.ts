@@ -1,30 +1,19 @@
 import 'reflect-metadata';
-import { config } from 'dotenv-safe';
+import { config as loadDotEnv } from 'dotenv-safe';
 import { createConnection } from 'typeorm';
-// import killPort from 'kill-port';
 
-import { createConnectionOptions } from './utils';
 import { app } from './app';
-
-config();
+import { createDbConnectionOptions } from './utils';
 
 const start = async (): Promise<void> => {
-  const connectionOptions = await createConnectionOptions();
-  await createConnection(connectionOptions);
+  // TODO: Wrap in try/catch, if catch than throw error (500 + restart)
+  const dbConnectionOptions = await createDbConnectionOptions();
+  await createConnection(dbConnectionOptions);
 
   app.listen(4000, () => {
     console.log('Server listening at port 4000.');
   });
 };
 
+loadDotEnv();
 start();
-//
-// const exit = (): void => {
-//   console.log('Stopping the server...');
-//   killPort(4000);
-//   process.exit();
-// };
-//
-// process.on('SIGINT', exit);
-//
-// process.on('exit', exit);

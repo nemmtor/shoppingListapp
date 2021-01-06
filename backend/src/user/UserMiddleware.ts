@@ -1,19 +1,14 @@
-import { length } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
 
-import { getDataFromToken } from '../utils';
+import { getDataFromToken, getLengthErrors } from '../utils';
 import { UserDAL } from './UserDAL';
-import { validations } from '../../../shared';
 import { IMiddlewareErrorRes } from './interfaces';
-
-const {
-  MIN_PW_LENGTH,
-  MAX_PW_LENGTH,
-  MIN_UNAME_LENGTH,
-  MAX_UNAME_LENGTH,
-} = validations;
+import { IFormError } from '../../../shared';
 
 export class UserMiddleware {
+  private static denyMessage = 'Access denied';
+
+  // Middleware used before login and register controllers
   public static validateAuthBodyRequest(
     req: Request,
     res: IMiddlewareErrorRes,
@@ -21,52 +16,49 @@ export class UserMiddleware {
   ): Response | void {
     const { username, password } = req.body;
 
+    // Invalid body error - something is missing
     if (!username || !password) {
-      return res.status(422).json({ errors: [{ field: 'form', error: 'Invalid body datata' }] });
+      return res
+        .status(422)
+        .json({ errors: [{ field: 'form', error: 'Invalid body datata' }] });
     }
 
-    if (!length(username, MIN_UNAME_LENGTH, MAX_UNAME_LENGTH)) {
-      return res.status(422).json({
-        errors: [{
-          field: 'username',
-          error: `Username must be between ${MIN_UNAME_LENGTH} and ${MAX_UNAME_LENGTH} characters long`
-        }]
-      });
+    const lengthErrors = [username, password]
+      .map((field) => getLengthErrors(field))
+      // remove nulls from getLengthErrors()
+      .filter((field) => !!field);
+
+    // Invalid body error - wrong length of input
+    if (lengthErrors.length > 0) {
+      return res.status(422).json({ errors: lengthErrors as IFormError[] });
     }
 
-    if (!length(password, MIN_PW_LENGTH, MAX_PW_LENGTH)) {
-      return res.status(422).json({
-        errors: [{
-          field: 'password',
-          error: `Password must be between ${MIN_PW_LENGTH} and ${MAX_PW_LENGTH} characters long`
-        }]
-      });
-    }
-
+    // All good - proceed to next one
     return next();
   }
 
+  // Middleware used before accessing protected api routes
   public static async checkAuthorization(
     req: Request,
     res: Response,
     next: NextFunction,
   ): Promise<Response | void> {
     const { token } = req.body;
-    const denyMessage = 'Access denied.';
-    if (!token) return res.status(401).json({ message: denyMessage });
-    try {
-      const decodedTokenData = getDataFromToken(token as string);
 
-      const user = await UserDAL.getOneById(decodedTokenData.userId);
-      if (!user) {
-        return res.status(401).json({ message: denyMessage });
-      }
+    if (!token)
+      return res.status(401).json({ message: UserMiddleware.denyMessage });
 
-      res.locals.user = user;
+    const { userId: userIdFromToken } = getDataFromToken(token as string);
 
-      return next();
-    } catch (_error) {
-      return res.status(401).json({ message: denyMessage });
-    }
+    if (!userIdFromToken)
+      return res.status(401).json({ message: UserMiddleware.denyMessage });
+
+    const user = await UserDAL.getOneById(userIdFromToken);
+    if (!user)
+      return res.status(401).json({ message: UserMiddleware.denyMessage });
+
+    // save user for next function
+    res.locals.user = user;
+    return next();
   }
 }

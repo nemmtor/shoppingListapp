@@ -1,3 +1,4 @@
+// Types for .env
 declare namespace NodeJS {
   export interface ProcessEnv {
     TYPEORM_USERNAME: string;

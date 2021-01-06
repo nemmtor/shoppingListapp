@@ -6,19 +6,13 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Drawer,
   Hidden,
 } from '@material-ui/core';
-import {
-  Menu as MenuIcon,
-  MoveToInbox as InboxIcon,
-  Mail as MailIcon,
-} from '@material-ui/icons';
+import { useHistory } from 'react-router-dom';
+import { Menu as MenuIcon } from '@material-ui/icons';
+
+import { DrawerContent } from './DrawerContent';
 
 const drawerWidth = 240;
 
@@ -57,38 +51,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const Dashboard: React.FC = () => {
   const styles = useStyles();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const history = useHistory();
 
   const handleDrawerToggle = (): void => {
     setIsMobileOpen((prevState) => !prevState);
   };
 
-  const drawer = (
-    <div>
-      <div className={styles.toolbar} />
-      <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
+  const handleLogout = (): void => {
+    localStorage.removeItem('authToken');
+    history.push('/login');
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -118,7 +90,7 @@ export const Dashboard: React.FC = () => {
               paper: styles.drawerPaper,
             }}
           >
-            {drawer}
+            <DrawerContent handleLogout={handleLogout} />
           </Drawer>
         </Hidden>
         <Hidden smDown>
@@ -129,7 +101,7 @@ export const Dashboard: React.FC = () => {
             variant="permanent"
             open
           >
-            {drawer}
+            <DrawerContent handleLogout={handleLogout} />
           </Drawer>
         </Hidden>
       </nav>

@@ -10,12 +10,12 @@ import {
 import { AccountBox as AccountBoxIcon } from '@material-ui/icons';
 import { Formik, Form, Field } from 'formik';
 import { Link as RouterLink } from 'react-router-dom';
-import * as Yup from 'yup';
 
 import { IAuthFormValues } from '../../interfaces';
 import { FormikTextField } from '../FormikTextField';
-import { IFormError, validations } from '../../../../shared';
+import { IFormError } from '../../../../shared';
 import { parseToFormikErrors } from '../../utils/parseToFormikErrors';
+import { getValidationSchema } from './getValidationSchema';
 
 type TFormType = 'register' | 'login';
 
@@ -44,43 +44,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const {
-  MIN_PW_LENGTH,
-  MAX_PW_LENGTH,
-  MIN_UNAME_LENGTH,
-  MAX_UNAME_LENGTH,
-} = validations;
-
-const yupLoginSchema = Yup.object().shape({
-  username: Yup.string()
-    .required('This field is required')
-    .min(MIN_UNAME_LENGTH, 'This username is too short')
-    .max(MAX_UNAME_LENGTH, 'This username is too long'),
-  password: Yup.string()
-    .required('This field is required')
-    .min(MIN_PW_LENGTH, 'This password is too short')
-    .max(MAX_PW_LENGTH, 'This password is too long'),
-});
-const yupRegisterSchema = Yup.object().shape({
-  username: Yup.string()
-    .required('This field is required')
-    .min(MIN_UNAME_LENGTH, 'This username is too short')
-    .max(MAX_UNAME_LENGTH, 'This username is too long'),
-  password: Yup.string()
-    .required('This field is required')
-    .min(MIN_PW_LENGTH, 'This password is too short')
-    .max(MAX_PW_LENGTH, 'This password is too long'),
-  confirmPassword: Yup.string().oneOf(
-    [Yup.ref('password'), null],
-    'Passwords must match',
-  ),
-});
-
 export const AuthForm: React.FC<IProps> = ({ handleSubmit, formType }) => {
   const styles = useStyles();
   const isLoginPage = formType === 'login';
 
-  const yupSchema = isLoginPage ? yupLoginSchema : yupRegisterSchema;
+  const yupSchema = getValidationSchema(formType);
 
   const formTitle = isLoginPage ? 'Login' : 'Register';
 

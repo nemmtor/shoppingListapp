@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { getDataFromToken, getLengthErrors } from '../utils';
+import { checkConstrains, getDataFromToken } from '../utils';
+
 import { UserDAL } from './UserDAL';
 import { IMiddlewareErrorRes } from './interfaces';
 import { IFormError } from '../../../shared';
@@ -20,17 +21,23 @@ export class UserMiddleware {
     if (!username || !password) {
       return res
         .status(422)
-        .json({ errors: [{ field: 'form', error: 'Invalid body datata' }] });
+        .json({ errors: [{ field: 'form', error: 'Invalid body data' }] });
     }
 
-    const lengthErrors = [username, password]
-      .map((field) => getLengthErrors(field))
-      // remove nulls from getLengthErrors()
-      .filter((field) => !!field);
+    // const lengthErrors = Object.entries({
+    //   username,
+    //   password,
+    // })
+    //   .map(([key, value]) => checkConstrains(key, value))
+    //   .filter((error) => error != null);
+
+    const constrainsErrors = checkConstrains({ username, password }).filter(
+      (error) => !!error,
+    );
 
     // Invalid body error - wrong length of input
-    if (lengthErrors.length > 0) {
-      return res.status(422).json({ errors: lengthErrors as IFormError[] });
+    if (constrainsErrors.length > 0) {
+      return res.status(422).json({ errors: constrainsErrors as IFormError[] });
     }
 
     // All good - proceed to next one

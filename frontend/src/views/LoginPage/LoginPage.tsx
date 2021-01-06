@@ -29,6 +29,8 @@ const LoginPage: React.FC<RouteProps> = () => {
     if (res.status < 400) {
       const { token } = json;
       localStorage.setItem('authToken', token as string);
+      // TODO: username shouldn't be hardcoded
+      localStorage.setItem('currentUser', 'username123');
 
       const { redirect } = qs.parse(location.search, {
         ignoreQueryPrefix: true,

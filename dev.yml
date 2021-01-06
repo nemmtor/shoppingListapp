@@ -9,6 +9,7 @@ services:
     container_name: dev.shopping-backend
     volumes:
       - ./backend:/home/app/shopping-back
+      - ./shared:/home/app/shared
     depends_on:
       - dev.shopping-db
 
@@ -21,6 +22,7 @@ services:
     container_name: dev.shopping-frontend
     volumes:
       - ./frontend:/home/app/shopping-front
+      - ./shared:/home/app/shared
 
   dev.shopping-db:
     image: postgres

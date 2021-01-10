@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { AuthForm, PaperCenter } from '../../components';
 import { IAuthResJson, IFormError } from '../../../../shared';
 import { IAuthFormValues } from '../../interfaces';
+import { saveToLocalStorage } from '../../utils';
 
 export const RegisterPage: React.FC = () => {
   const history = useHistory();
@@ -25,6 +26,10 @@ export const RegisterPage: React.FC = () => {
 
     // If success
     if (res.status < 400) {
+      const { token, userId, username: usernameFromToken } = json;
+      saveToLocalStorage('authToken', token as string);
+      saveToLocalStorage('currentUserUsername', usernameFromToken as string);
+      saveToLocalStorage('currentUserId', `${userId}`);
       return history.push('/dashboard');
     }
     return json.errors;

@@ -20,7 +20,9 @@ export class UserController {
 
       const token = createAuthToken(user);
 
-      return res.status(200).json({ token });
+      return res
+        .status(200)
+        .json({ token, username: user.username, userId: user.id });
     } catch (error) {
       // TODO: username already taken should return 409
       // TODO: Right now error here is hardcoded - need to fix that
@@ -63,9 +65,11 @@ export class UserController {
     const token = createAuthToken(user);
 
     // TODO: Make sure this is safe
-    res.cookie('token', token, { httpOnly: true });
+    // res.cookie('token', token, { httpOnly: true });
 
-    return res.status(200).json({ token });
+    return res
+      .status(200)
+      .json({ token, username: user.username, userId: user.id });
   }
 
   public static me(_req: Request, res: Response): Response {

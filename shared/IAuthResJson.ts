@@ -9,4 +9,6 @@ interface IAuthFormError extends IFormError {
 export interface IAuthResJson {
   errors?: IAuthFormError[];
   token?: string;
+  username?: string;
+  userId?: number;
 }

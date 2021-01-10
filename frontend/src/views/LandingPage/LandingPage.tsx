@@ -9,7 +9,7 @@ const LandingPage: React.FC = () => {
     <div className="fullscreenCenterBg">
       <PaperCenter elevation={10}>
         <Typography variant="h4" component="h1" align="center">
-          Shopping List App
+          Shopping List App! v1.0
         </Typography>
         <Box sx={{ marginTop: 2 }}>
           <Button

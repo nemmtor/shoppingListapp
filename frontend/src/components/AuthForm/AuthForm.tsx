@@ -14,7 +14,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { IAuthFormValues } from '../../interfaces';
 import { FormikTextField } from '../FormikTextField';
 import { IFormError } from '../../../../shared';
-import { parseToFormikErrors } from '../../utils/parseToFormikErrors';
+import { parseToFormikErrors } from '../../utils';
 import { getValidationSchema } from './getValidationSchema';
 
 type TFormType = 'register' | 'login';

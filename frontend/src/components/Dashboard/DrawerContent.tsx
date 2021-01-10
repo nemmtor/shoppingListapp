@@ -56,11 +56,14 @@ const drawerItems = [
 
 interface IProps {
   handleLogout: () => void;
+  currentUser: string;
 }
 
-export const DrawerContent: React.FC<IProps> = ({ handleLogout }) => {
+export const DrawerContent: React.FC<IProps> = ({
+  handleLogout,
+  currentUser,
+}) => {
   const styles = useStyles();
-  const currentUser = localStorage.getItem('currentUser');
 
   return (
     <div>

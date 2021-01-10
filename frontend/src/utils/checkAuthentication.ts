@@ -7,5 +7,8 @@ export const checkAuthentication = async (): Promise<boolean> => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ token }),
   });
-  return res.json();
+  if (res.status >= 400) {
+    return false;
+  }
+  return true;
 };

@@ -5,6 +5,7 @@ import qs from 'qs';
 import { AuthForm, PaperCenter } from '../../components';
 import { IAuthFormValues } from '../../interfaces';
 import { IFormError, IAuthResJson } from '../../../../shared';
+import { saveToLocalStorage } from '../../utils';
 
 const LoginPage: React.FC<RouteProps> = () => {
   const location = useLocation();
@@ -27,10 +28,10 @@ const LoginPage: React.FC<RouteProps> = () => {
 
     // If success
     if (res.status < 400) {
-      const { token } = json;
-      localStorage.setItem('authToken', token as string);
-      // TODO: username shouldn't be hardcoded
-      localStorage.setItem('currentUser', 'username123');
+      const { token, username: usernameFromToken, userId } = json;
+      saveToLocalStorage('authToken', token as string);
+      saveToLocalStorage('currentUserUsername', usernameFromToken as string);
+      saveToLocalStorage('currentUserId', `${userId}`);
 
       const { redirect } = qs.parse(location.search, {
         ignoreQueryPrefix: true,

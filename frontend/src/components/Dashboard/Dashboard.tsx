@@ -53,6 +53,8 @@ export const Dashboard: React.FC = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const history = useHistory();
 
+  const currentUser = localStorage.getItem('currentUserUsername');
+
   const handleDrawerToggle = (): void => {
     setIsMobileOpen((prevState) => !prevState);
   };
@@ -90,7 +92,10 @@ export const Dashboard: React.FC = () => {
               paper: styles.drawerPaper,
             }}
           >
-            <DrawerContent handleLogout={handleLogout} />
+            <DrawerContent
+              handleLogout={handleLogout}
+              currentUser={currentUser as string}
+            />
           </Drawer>
         </Hidden>
         <Hidden smDown>
@@ -101,7 +106,10 @@ export const Dashboard: React.FC = () => {
             variant="permanent"
             open
           >
-            <DrawerContent handleLogout={handleLogout} />
+            <DrawerContent
+              handleLogout={handleLogout}
+              currentUser={currentUser as string}
+            />
           </Drawer>
         </Hidden>
       </nav>

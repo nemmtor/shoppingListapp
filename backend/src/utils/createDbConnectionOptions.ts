@@ -9,7 +9,6 @@ export const createDbConnectionOptions = async (): Promise<ConnectionOptions> =>
   const connectionOptions = await getConnectionOptions();
 
   const extraOptions = {
-    host: IS_PROD ? process.env.TYPEORM_HOST : 'dev.shopping-db',
     synchronize: !IS_PROD,
   };
 

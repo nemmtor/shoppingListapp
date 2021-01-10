@@ -1,19 +1,16 @@
 FROM node:14.15.1-alpine
 
-RUN mkdir -p /home/app/shopping-front && mkdir -p /home/app/shared && chown -R node:node /home/app
+RUN mkdir -p /home/app/code && mkdir -p /home/app/shared && chown -R node:node /home/app
 
-WORKDIR /home/app
+WORKDIR /home/app/code
 
-COPY frontend/package.json ./shopping-front
+COPY frontend/package.json .
 
-COPY frontend/yarn.lock ./shopping-front
-
-COPY shared ./shared
-
-
-WORKDIR /home/app/shopping-front
+COPY frontend/yarn.lock .
 
 RUN yarn install
+
+COPY shared ../shared
 
 USER node
 

@@ -1,20 +1,16 @@
 FROM node:14.15.1-alpine
-# TODO: Do I really need to make /home/app/shopping-back?
-# TODO: /app/code/src and app/shared should be enough
-RUN mkdir -p /home/app/shopping-back && mkdir -p /home/app/shared && chown -R node:node /home/app
 
-WORKDIR /home/app
+RUN mkdir -p /home/app/code && mkdir -p /home/app/shared && chown -R node:node /home/app
 
-COPY backend/package.json ./shopping-back
+WORKDIR /home/app/code
 
-COPY backend/yarn.lock ./shopping-back
+COPY backend/package.json .
 
-COPY shared ./shared
-
-
-WORKDIR /home/app/shopping-back
+COPY backend/yarn.lock .
 
 RUN yarn install
+
+COPY shared ../shared
 
 USER node
 
@@ -23,6 +19,5 @@ COPY --chown=node:node backend .
 RUN chmod 755 ./entrypoint.sh
 
 
-EXPOSE 5000
+EXPOSE 4000
 ENTRYPOINT ["sh", "./entrypoint.sh"]
-# CMD [ "yarn", "start" ]

@@ -9,6 +9,7 @@ import {
   Theme,
   Typography,
   Box,
+  Link,
 } from '@material-ui/core';
 import {
   ExitToApp as LogoutIcon,
@@ -16,7 +17,9 @@ import {
   ViewList as YourListsIcon,
   Public as PublicIcon,
   AccountCircle as AccountIcon,
+  Dashboard as DashboardIcon,
 } from '@material-ui/icons';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: theme.mixins.toolbar,
@@ -41,16 +44,24 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const drawerItems = [
   {
-    text: 'Your lists',
-    Icon: YourListsIcon,
+    text: 'Dashboard',
+    Icon: DashboardIcon,
+    linkTo: '/dashboard',
   },
   {
     text: 'Add new',
     Icon: AddCartIcon,
+    linkTo: '/dashboard/addnew',
+  },
+  {
+    text: 'Your lists',
+    Icon: YourListsIcon,
+    linkTo: '/dashboard/addnew',
   },
   {
     text: 'Public ones',
     Icon: PublicIcon,
+    linkTo: '/dashboard/addnew',
   },
 ];
 
@@ -75,13 +86,21 @@ export const DrawerContent: React.FC<IProps> = ({
       </Box>
       <Divider />
       <List>
-        {drawerItems.map(({ text, Icon }) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              <Icon />
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+        {drawerItems.map(({ text, Icon, linkTo }) => (
+          <Link
+            to={linkTo}
+            component={RouterLink}
+            underline="none"
+            color="inherit"
+            key={text}
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <Icon />
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />

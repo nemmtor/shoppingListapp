@@ -3,9 +3,15 @@ import { Route, Switch } from 'react-router-dom';
 import { CssBaseline, StylesProvider, ThemeProvider } from '@material-ui/core';
 import { HelmetProvider } from 'react-helmet-async';
 
-import { LandingPage, LoginPage, RegisterPage } from './views';
+import {
+  LandingPage,
+  LoginPage,
+  RegisterPage,
+  DashboardPage,
+  AddNewListPage,
+} from './views';
 import { ProtectedRoute } from './ProtectedRoute';
-import { DashboardPage } from './views/DashboardPage';
+
 import { theme } from './theme';
 import { Page } from './components';
 
@@ -30,6 +36,12 @@ const App: React.FC = () => {
               path="/dashboard"
               title="Dashboard - Shopping App"
               Component={DashboardPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/dashboard/addnew"
+              title="Add new shopping list - Shopping App"
+              Component={AddNewListPage}
             />
           </Switch>
         </ThemeProvider>

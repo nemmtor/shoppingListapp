@@ -24,16 +24,10 @@ export class UserMiddleware {
         .json({ errors: [{ field: 'form', error: 'Invalid body data' }] });
     }
 
-    // const lengthErrors = Object.entries({
-    //   username,
-    //   password,
-    // })
-    //   .map(([key, value]) => checkConstrains(key, value))
-    //   .filter((error) => error != null);
-
-    const constrainsErrors = checkConstrains({ username, password }).filter(
-      (error) => !!error,
-    );
+    const constrainsErrors = checkConstrains({
+      username,
+      password,
+    }).filter((error) => !!error);
 
     // Invalid body error - wrong length of input
     if (constrainsErrors.length > 0) {

@@ -1,6 +1,10 @@
 import React from 'react';
-import { Dashboard } from '../../../components';
+import { Dashboard, NewListForm } from '../../../components';
 
 export const AddNewListPage: React.FC = () => {
-  return <Dashboard>Hello there</Dashboard>;
+  return (
+    <Dashboard>
+      <NewListForm />
+    </Dashboard>
+  );
 };

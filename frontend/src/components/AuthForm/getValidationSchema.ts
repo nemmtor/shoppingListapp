@@ -9,12 +9,12 @@ export const getValidationSchema = (formType: TFormType): unknown => {
   const loginShape = {
     username: Yup.string()
       .required('This field is required')
-      .min(username.min, 'This username is too short')
-      .max(username.max, 'This username is too long'),
+      .min(username!.min, 'This username is too short')
+      .max(username!.max, 'This username is too long'),
     password: Yup.string()
       .required('This field is required')
-      .min(password.min, 'This password is too short')
-      .max(password.max, 'This password is too long'),
+      .min(password!.min, 'This password is too short')
+      .max(password!.max, 'This password is too long'),
   };
 
   const schema = Yup.object().shape(loginShape);

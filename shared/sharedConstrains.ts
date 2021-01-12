@@ -14,9 +14,9 @@ interface IMinMax {
 type Fields = { [key in Keys]?: IMinMax };
 
 interface ISharedConstrains extends Fields {
-  username?: IMinMax;
-  password?: IMinMax;
-  listTitle?: IMinMax;
+  username: IMinMax;
+  password: IMinMax;
+  listTitle: IMinMax;
 }
 
 export const sharedConstrains: ISharedConstrains = {

@@ -23,7 +23,7 @@ export class List extends BaseEntity {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  @Length(listTitle!.min, listTitle!.max)
+  @Length(listTitle.min, listTitle.max)
   @Column()
   title!: string;
 }

@@ -22,7 +22,7 @@ export class User extends BaseEntity {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  @Length(username!.min, username!.max)
+  @Length(username.min, username.max)
   @Column({ unique: true })
   username!: string;
 

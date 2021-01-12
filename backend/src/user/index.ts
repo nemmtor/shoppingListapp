@@ -1,1 +1,2 @@
-export { userRoute } from './userRoute';
+export { User } from './User.entity';
+export { userController } from './userController';

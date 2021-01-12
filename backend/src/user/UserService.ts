@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import argon2 from 'argon2';
 
+import { validateOrReject } from 'class-validator';
+
 import { parseSqlError, createAuthToken } from '../utils';
-import { UserDAL } from './UserDAL';
-
 import { IAuthRes } from './interfaces';
+import { User } from './User.entity';
 
-export class UserController {
+export class UserService {
   private static failedLoginCode = 401;
 
   private static failedLoginMessage = 'Invalid username or password.';
@@ -16,8 +17,11 @@ export class UserController {
     const { username, password } = req.body;
 
     try {
-      const user = await UserDAL.createOrFail(username, password);
+      const hashedPassword = await argon2.hash(password);
+      const user = User.create({ username, password: hashedPassword });
 
+      await validateOrReject(user);
+      await user.save();
       const token = createAuthToken(user);
 
       return res
@@ -42,22 +46,22 @@ export class UserController {
     // Dont need to check body - it was checked in middleware
     const { username, password } = req.body;
 
-    const user = await UserDAL.getOneByUsername(username);
+    const user = await User.findOne({ where: { username } });
     if (!user) {
-      return res.status(UserController.failedLoginCode).json({
+      return res.status(UserService.failedLoginCode).json({
         errors: [
-          { field: 'username', error: UserController.failedLoginMessage },
-          { field: 'password', error: UserController.failedLoginMessage },
+          { field: 'username', error: UserService.failedLoginMessage },
+          { field: 'password', error: UserService.failedLoginMessage },
         ],
       });
     }
 
     const validPassword = await argon2.verify(user.password, password);
     if (!validPassword) {
-      return res.status(UserController.failedLoginCode).json({
+      return res.status(UserService.failedLoginCode).json({
         errors: [
-          { field: 'username', error: UserController.failedLoginMessage },
-          { field: 'password', error: UserController.failedLoginMessage },
+          { field: 'username', error: UserService.failedLoginMessage },
+          { field: 'password', error: UserService.failedLoginMessage },
         ],
       });
     }

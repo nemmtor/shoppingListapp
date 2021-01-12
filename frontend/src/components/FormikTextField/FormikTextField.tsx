@@ -6,6 +6,7 @@ interface IProps extends FieldProps {
   className: string;
   label: string;
   type: string;
+  value: string;
 }
 
 export const FormikTextField: React.FC<IProps> = ({
@@ -14,8 +15,9 @@ export const FormikTextField: React.FC<IProps> = ({
   field,
   form,
   type = 'text',
+  value,
 }) => {
-  const { value, onChange, onBlur, name } = field;
+  const { onChange, onBlur, name } = field;
   const { errors, touched } = form;
 
   const isTouched = !!touched[`${name}`];

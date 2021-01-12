@@ -4,10 +4,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { sharedConstrains } from '../../../shared';
+import { List } from '../list/List.entity';
 
 const { username } = sharedConstrains;
 
@@ -29,4 +31,7 @@ export class User extends BaseEntity {
   // Dont validate password because it is a hash here
   @Column()
   password!: string;
+
+  @OneToMany(() => List, (list) => list.user)
+  lists?: List[];
 }

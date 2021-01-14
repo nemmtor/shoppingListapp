@@ -9,6 +9,7 @@ import {
   RegisterPage,
   DashboardPage,
   AddNewListPage,
+  YourListsPage,
 } from './views';
 import { ProtectedRoute } from './ProtectedRoute';
 
@@ -42,6 +43,12 @@ const App: React.FC = () => {
               path="/dashboard/addnew"
               title="Add new shopping list - Shopping App"
               Component={AddNewListPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/dashboard/yourlists"
+              title="Your lists - Shopping App"
+              Component={YourListsPage}
             />
           </Switch>
         </ThemeProvider>

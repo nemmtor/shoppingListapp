@@ -3,7 +3,6 @@ import { Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { INewListFormValues } from '../../interfaces/INewListFormValues';
 import { FormikTextField } from '../FormikTextField';
-import { SuccessImage } from './SuccessImage';
 
 interface Props {
   handleSubmit: (values: INewListFormValues) => Promise<void | string>;
@@ -46,7 +45,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const NewListForm: React.FC<Props> = ({ handleSubmit }) => {
   const styles = useStyles();
   const [productsNumbers, setProductsNumbers] = useState([0]);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleAddProduct = (): void => {
     setProductsNumbers((prevState) => {
@@ -64,13 +62,7 @@ export const NewListForm: React.FC<Props> = ({ handleSubmit }) => {
   };
 
   return (
-    <Formik
-      initialValues={{ title: '' }}
-      onSubmit={(values): void => {
-        handleSubmit(values);
-        setIsSubmitted(true);
-      }}
-    >
+    <Formik initialValues={{ title: '' }} onSubmit={handleSubmit}>
       {(): JSX.Element => (
         <Form className={styles.form}>
           <Field
@@ -116,9 +108,6 @@ export const NewListForm: React.FC<Props> = ({ handleSubmit }) => {
           <Button variant="contained" color="primary" type="submit">
             Save list
           </Button>
-          {isSubmitted && (
-            <SuccessImage className={styles.successImageContainer} />
-          )}
         </Form>
       )}
     </Formik>

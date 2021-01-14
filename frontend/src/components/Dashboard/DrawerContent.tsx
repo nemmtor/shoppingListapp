@@ -15,7 +15,6 @@ import {
   ExitToApp as LogoutIcon,
   AddShoppingCart as AddCartIcon,
   ViewList as YourListsIcon,
-  Public as PublicIcon,
   AccountCircle as AccountIcon,
   Dashboard as DashboardIcon,
 } from '@material-ui/icons';
@@ -56,12 +55,7 @@ const drawerItems = [
   {
     text: 'Your lists',
     Icon: YourListsIcon,
-    linkTo: '/dashboard/addnew',
-  },
-  {
-    text: 'Public ones',
-    Icon: PublicIcon,
-    linkTo: '/dashboard/addnew',
+    linkTo: '/dashboard/yourlists',
   },
 ];
 

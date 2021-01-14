@@ -7,6 +7,8 @@ export class ListService {
     const { title, token, ...products } = req.body;
     const { user } = res.locals;
 
+    console.log(req.body);
+
     const productsToSave: Product[] = [];
     const productNames = Object.values(products) as string[];
     try {
@@ -20,5 +22,18 @@ export class ListService {
       console.log(e);
       return res.status(400).json({ error: 'something went wrong' });
     }
+  }
+
+  public static async getMyLists(
+    _req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const { user } = res.locals;
+
+    const lists = await List.find({
+      relations: ['user'],
+      where: { user },
+    });
+    return res.status(200).json({ lists });
   }
 }

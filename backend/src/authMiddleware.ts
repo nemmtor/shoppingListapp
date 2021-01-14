@@ -9,8 +9,10 @@ export const authMiddleware = async (
   res: Response,
   next: NextFunction,
 ): Promise<Response | void> => {
-  const { token } = req.body;
-  if (!token) return res.status(401).json({ message: denyMessage });
+  const { authorization: bearer } = req.headers;
+  if (!bearer) return res.status(401).json({ message: denyMessage });
+
+  const token = bearer.split(' ')[1];
 
   const { userId: userIdFromToken } = getDataFromToken(token as string);
   if (!userIdFromToken) return res.status(401).json({ message: denyMessage });

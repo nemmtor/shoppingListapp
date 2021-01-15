@@ -3,7 +3,7 @@ import { Dashboard } from '../../../components';
 import { createBearerToken } from '../../../utils';
 
 export const YourListsPage: React.FC = () => {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState(['']);
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -25,7 +25,7 @@ export const YourListsPage: React.FC = () => {
 
   return (
     <Dashboard>
-      <pre>{JSON.stringify(lists, null, 4)}</pre>
+      {lists.length > 0 && lists.map((list) => <p>{list}</p>)}
     </Dashboard>
   );
 };

@@ -24,16 +24,19 @@ export class ListService {
     }
   }
 
-  public static async getMyLists(
+  public static async getMyListsTitles(
     _req: Request,
     res: Response,
   ): Promise<Response> {
     const { user } = res.locals;
 
     const lists = await List.find({
-      relations: ['user'],
+      // relations: ['user'],
+      select: ['title'],
       where: { user },
     });
-    return res.status(200).json({ lists });
+    const titles: string[] = [];
+    lists.forEach((list) => titles.push(list.title));
+    return res.status(200).json({ lists: titles });
   }
 }

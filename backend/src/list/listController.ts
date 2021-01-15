@@ -17,5 +17,5 @@ listController.get(
   (req: Request, res: Response, next: NextFunction) => {
     authMiddleware(req, res, next);
   },
-  ListService.getMyLists,
+  ListService.getMyListsTitles,
 );

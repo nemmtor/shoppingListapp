@@ -14,7 +14,6 @@ try {
   apiDocsRoute.use('/', swaggerUI.serve);
   apiDocsRoute.get('/', swaggerUI.setup(swaggerDocs as JsonObject));
 } catch (_err) {
-  console.log(`Warning: couldn't load swagger docs!`);
   apiDocsRoute.get('/', (_req, res) => {
     res
       .status(400)

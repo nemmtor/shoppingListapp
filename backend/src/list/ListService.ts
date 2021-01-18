@@ -7,8 +7,6 @@ export class ListService {
     const { title, token, ...products } = req.body;
     const { user } = res.locals;
 
-    console.log(req.body);
-
     const productsToSave: Product[] = [];
     const productNames = Object.values(products) as string[];
     try {
@@ -19,7 +17,6 @@ export class ListService {
       await list.save();
       return res.status(200).json();
     } catch (e) {
-      console.log(e);
       return res.status(400).json({ error: 'something went wrong' });
     }
   }
@@ -31,12 +28,23 @@ export class ListService {
     const { user } = res.locals;
 
     const lists = await List.find({
-      // relations: ['user'],
-      select: ['title'],
+      select: ['title', 'id'],
       where: { user },
     });
-    const titles: string[] = [];
-    lists.forEach((list) => titles.push(list.title));
-    return res.status(200).json({ lists: titles });
+
+    const titlesAndIds: Record<string, string>[] = [];
+    lists.forEach((list) =>
+      titlesAndIds.push({ title: list.title, id: `${list.id}` }),
+    );
+    return res.status(200).json({ lists: titlesAndIds });
+  }
+
+  public static async getMyList(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const { id } = req.params;
+    const list = await List.findOne(id);
+    return res.status(200).json({ list });
   }
 }

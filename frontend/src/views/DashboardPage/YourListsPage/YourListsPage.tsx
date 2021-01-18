@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { Box, Button, Link, Typography } from '@material-ui/core';
+
 import { Dashboard } from '../../../components';
 import { createBearerToken } from '../../../utils';
 
 export const YourListsPage: React.FC = () => {
-  const [lists, setLists] = useState(['']);
+  const [lists, setLists] = useState([]);
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -25,7 +28,17 @@ export const YourListsPage: React.FC = () => {
 
   return (
     <Dashboard>
-      {lists.length > 0 && lists.map((list) => <p>{list}</p>)}
+      <Box sx={{ marginBottom: 3 }}>
+        <Typography variant="h4">Your lists:</Typography>
+      </Box>
+      {lists?.length > 0 &&
+        lists.map(({ id, title }) => (
+          <Box key={id} sx={{ marginBottom: 1 }}>
+            <Link component={RouterLink} to={`/dashboard/yourlists/${id}`}>
+              <Button variant="outlined">{title}</Button>
+            </Link>
+          </Box>
+        ))}
     </Dashboard>
   );
 };

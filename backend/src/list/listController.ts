@@ -19,3 +19,11 @@ listController.get(
   },
   ListService.getMyListsTitles,
 );
+
+listController.get(
+  '/:id',
+  (req: Request, res: Response, next: NextFunction) => {
+    authMiddleware(req, res, next);
+  },
+  ListService.getMyList,
+);

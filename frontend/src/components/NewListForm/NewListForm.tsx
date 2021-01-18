@@ -62,7 +62,19 @@ export const NewListForm: React.FC<Props> = ({ handleSubmit }) => {
   };
 
   return (
-    <Formik initialValues={{ title: '' }} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={{ title: '' }}
+      onSubmit={(values): void => {
+        const filteredInputs = Object.entries(values).filter(([key]) => {
+          const inputNumber = key.split('-')[1];
+          return productsNumbers.includes(+inputNumber);
+        });
+        handleSubmit({
+          ...Object.fromEntries(filteredInputs),
+          title: values.title,
+        });
+      }}
+    >
       {(): JSX.Element => (
         <Form className={styles.form}>
           <Field

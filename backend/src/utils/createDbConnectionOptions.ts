@@ -10,7 +10,7 @@ export const createDbConnectionOptions = async (): Promise<ConnectionOptions> =>
 
   const extraOptions = {
     synchronize: !IS_PROD,
-    // dropSchema: !IS_PROD,
+    dropSchema: !IS_PROD,
   };
 
   // return merged options

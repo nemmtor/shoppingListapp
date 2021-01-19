@@ -4,6 +4,7 @@ import { Box, Button, Link, Typography } from '@material-ui/core';
 
 import { Dashboard } from '../../../components';
 import { createBearerToken } from '../../../utils';
+import { API_URL } from '../../../config';
 
 export const YourListsPage: React.FC = () => {
   const [lists, setLists] = useState([]);

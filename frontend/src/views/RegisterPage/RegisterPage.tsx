@@ -5,6 +5,7 @@ import { AuthForm, PaperCenter } from '../../components';
 import { IAuthResJson, IFormError } from '../../../../shared';
 import { IAuthFormValues } from '../../interfaces';
 import { saveToLocalStorage } from '../../utils';
+import { API_URL } from '../../config';
 
 export const RegisterPage: React.FC = () => {
   const history = useHistory();
@@ -14,7 +15,7 @@ export const RegisterPage: React.FC = () => {
   ): Promise<void | IFormError[]> => {
     const { username, password } = values;
     const body = JSON.stringify({ username, password });
-    const res = await fetch('http://localhost:4000/user/register', {
+    const res = await fetch(`${API_URL}/user/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

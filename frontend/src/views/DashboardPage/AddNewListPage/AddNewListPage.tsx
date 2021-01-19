@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Dashboard, NewListForm } from '../../../components';
 import { INewListFormValues } from '../../../interfaces/INewListFormValues';
 import { createBearerToken } from '../../../utils';
+import { API_URL } from '../../../config';
 
 export const AddNewListPage: React.FC = () => {
   const history = useHistory();
@@ -16,7 +17,7 @@ export const AddNewListPage: React.FC = () => {
     const { title, ...products } = values;
 
     const body = JSON.stringify({ title, ...products });
-    const res = await fetch('http://localhost:4000/list', {
+    const res = await fetch(`${API_URL}/list`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

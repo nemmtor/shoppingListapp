@@ -12,7 +12,7 @@ export const YourListsPage: React.FC = () => {
     const fetchData = async (): Promise<void> => {
       const token = localStorage.getItem('authToken');
       const bearer = createBearerToken(token as string);
-      const res = await fetch('http://localhost:4000/list', {
+      const res = await fetch(`${API_URL}/list`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

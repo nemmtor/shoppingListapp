@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import { createBearerToken } from './createBearerToken';
 
 export const checkAuthentication = async (): Promise<boolean> => {
@@ -6,7 +7,7 @@ export const checkAuthentication = async (): Promise<boolean> => {
 
   const bearer = createBearerToken(token as string);
 
-  const res = await fetch('http://localhost:4000/user/me', {
+  const res = await fetch(`${API_URL}/user/me`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: bearer },
   });

@@ -13,6 +13,7 @@ import {
 
 import { Dashboard } from '../../../components';
 import { createBearerToken } from '../../../utils';
+import { API_URL } from '../../../config';
 
 interface IProduct {
   name: string;
@@ -51,7 +52,7 @@ export const SingleListPage: React.FC = () => {
     const fetchData = async (): Promise<void> => {
       const token = localStorage.getItem('authToken');
       const bearer = createBearerToken(token as string);
-      const res = await fetch(`http://localhost:4000/list/${params.id}`, {
+      const res = await fetch(`${API_URL}/list/${params.id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

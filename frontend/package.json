@@ -11,6 +11,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "cross-env": "^7.0.3",
     "fontsource-roboto": "^4.0.0",
     "formik": "^2.2.6",
     "gsap": "^3.6.0",
@@ -27,9 +28,9 @@
     "yup": "^0.32.8"
   },
   "scripts": {
-    "dev": "craco start",
+    "dev": "cross-env NODE_ENV=dev craco start",
     "build": "craco build",
-    "start": "serve -s build"
+    "start": "cross-env NODE_ENV=production serve -s build"
   },
   "browserslist": {
     "production": [

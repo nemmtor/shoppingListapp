@@ -4,6 +4,8 @@ services:
     image: nemmtor/shopping-backend
     ports:
       - "4000:4000"
+    env_file:
+      - ./.env
     depends_on:
       - shopping-db
     restart: always
@@ -12,6 +14,8 @@ services:
     image: nemmtor/shopping-frontend
     ports:
       - "5000:5000"
+    env_file:
+      - ./.env
     depends_on:
       - shopping-backend
     restart: always
@@ -21,6 +25,8 @@ services:
     env_file:
       - ./.env
     restart: always
+    # ports:
+    #   - "5432:5432"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - dbvolume:/var/lib/postgresql/data

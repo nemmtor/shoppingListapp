@@ -15,6 +15,7 @@ export const RegisterPage: React.FC = () => {
   ): Promise<void | IFormError[]> => {
     const { username, password } = values;
     const body = JSON.stringify({ username, password });
+    console.log(API_URL);
     const res = await fetch(`${API_URL}/user/register`, {
       method: 'POST',
       headers: {
